@@ -7,8 +7,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(360, 800);
-  image(defaultImage, 0, 0, 360, 800); // Display the default image initially
+  createCanvas(180, 400);
+  image(defaultImage, 0, 0, 180, 400); // Display the default image initially
 
   // 获取已加载的视频元素
   videos.P1 = select("#P1").elt;
@@ -90,5 +90,5 @@ function playVideo(stage, onComplete, loop = false) {
 
 function resetToDefaultImage() {
   clear();
-  image(defaultImage, 0, 0, 360, 800);
+  image(defaultImage, 0, 0, 180, 400);
 }
