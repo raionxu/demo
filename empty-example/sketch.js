@@ -1,30 +1,34 @@
 let currentStage = 'P1';
 let videos = {};
+let defaultImage;
 
 function preload() {
-  // Load videos here
+  // Load the default image
+  defaultImage = loadImage('1.png');
+
+  // Load all videos initially and set them up
   videos.P1 = createVideo('P1.mp4');
   videos.P2 = createVideo('P2.mp4');
   videos.P3 = createVideo('P3.mp4');
   videos.P4 = createVideo('P4.mp4');
   videos.P5 = createVideo('P5.mp4');
 
-  // Hide and style video elements initially
   for (let key in videos) {
-    //videos[key].style('position', 'absolute'); // Absolute positioning
-    videos[key].position(0, 0); // Set video to the top-left corner
-    videos[key].size(1080, 2400); // Set video size to match canvas
-    videos[key].style('visibility', 'hidden'); // Start with hidden visibility
+    videos[key].size(360, 800);
+    videos[key].position(0, 0);
+    videos[key].style('opacity', '0'); // Set opacity to 0 to hide without reloading
+    //videos[key].attribute('preload', 'auto'); // Ensure videos are preloaded
+ 
+  
   }
 }
 
 function setup() {
-  createCanvas(1080, 2400);
-  //noLoop(); // We don't need draw() to loop
+  createCanvas(360, 800);
+  image(defaultImage, 0, 0, 360, 800); // Display the default image initially
 }
 
-
-function mousePressed() {
+function touchStarted() {
   if (currentStage === 'P1') {
     playP1();
   } else if (currentStage === 'P2') {
@@ -64,19 +68,25 @@ function playP5() {
   currentStage = 'P5';
   playVideo(currentStage, () => {
     currentStage = 'P1';
+    // Return to displaying the default image after looping
+    resetToDefaultImage();
   });
 }
 
 function playVideo(stage, onComplete, loop = false) {
-  // Stop and hide all videos first, using visibility to prevent reloading
+  // Hide the default image
+  clear();
+  
+  // Pause all videos and set opacity to 0 to "hide" them without reloading
   for (let key in videos) {
-    videos[key].stop();
-    videos[key].style('visibility', 'hidden');
+    videos[key].pause();
+    videos[key].style('opacity', '0');
   }
 
   let video = videos[stage];
-  video.style('visibility', 'visible'); // Make the target video visible
+  video.style('opacity', '1'); // Set opacity to 1 to make it visible
   video.play();
+
   if (loop) {
     video.loop();
   } else {
@@ -84,4 +94,10 @@ function playVideo(stage, onComplete, loop = false) {
       if (onComplete) onComplete();
     });
   }
+}
+
+function resetToDefaultImage() {
+  // Clear the canvas and redraw the default image
+  clear();
+  image(defaultImage, 0, 0, 360, 800);
 }
