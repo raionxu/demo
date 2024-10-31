@@ -9,10 +9,16 @@
       padding: 0;
       margin: 0;
       background-color: #1b1b1b;
-      overflow: hidden; /* 防止滚动 */
+      overflow: hidden;
     }
-    video {
-      pointer-events: none; /* 禁用视频的点击事件 */
+    #videos video {
+      position: absolute;
+      width: 360px;
+      height: 800px;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      
     }
   </style>
   <script src="p5.min.js"></script>
@@ -20,7 +26,13 @@
 </head>
 <body>
   <main>
-    <!-- 通过 JS 控制视频播放，无需添加视频标签 -->
+    <div id="videos">
+      <video id="P1" src="P1.mp4" preload="auto"></video>
+      <video id="P2" src="P2.mp4" preload="auto"></video>
+      <video id="P3" src="P3.mp4" preload="auto"></video>
+      <video id="P4" src="P4.mp4" preload="auto"></video>
+      <video id="P5" src="P5.mp4" preload="auto"></video>
+    </div>
   </main>
 </body>
 </html>
