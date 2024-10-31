@@ -26,7 +26,7 @@ function setup() {
   image(defaultImage, 0, 0, 360, 800); // Display the default image initially
 }
 
-function mousePressed() {
+function touchStarted() {
   if (currentStage === 'P1') {
     playP1();
   } else if (currentStage === 'P2') {
